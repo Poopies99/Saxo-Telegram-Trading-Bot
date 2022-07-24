@@ -1,0 +1,4 @@
+-i https://pypi.org/simple
+requests >= 2.20
+saxo-openapi == 0.6.0
+
