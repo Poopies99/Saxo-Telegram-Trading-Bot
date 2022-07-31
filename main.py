@@ -1,30 +1,38 @@
 from Library.saxo_openapi import API
-import order
+from Library.telebot import TeleBot
 import os
 import portfolio
 import notification
+import bot
 
 def run():
     setEnvironmentVar()
 
-    # Run Client Instance
-    client = API(access_token=os.getenv('AccessToken'))
+    # # Run Client Instance
+    # client = API(access_token=os.getenv('AccessToken'))
 
+    # # Create PriceAlert
     # print(notification.createPriceAlerts(client))
-    # print(notification.getAlertDefinitionId(client))
-    print(notification.viewPriceAlerts(client))
-    # print(portfolio.accountBalance(client))
-    # EURUSD
-    # print(order.createOrder(client, 100000, "FxSpot", "Sell", "Market", 22))
 
+    # # Get Created Price Alert
+    # print(notification.viewPriceAlerts(client))
+
+    # # Get Account Balance
+    # print(portfolio.accountBalance(client))
+    
+    # # Create Order
+    # print(order.createOrder(client, 100000, "FxSpot", "Sell", "Market", 22)) # EURUSD 
+
+    # # View Current Positions
     # print(order.viewPositions(client))
 
 def setEnvironmentVar():
     os.environ['AccountGroupKey'] = "ECZ7QD0zH4SlF33Ulun|KA=="
     os.environ['AccountKey'] = "ECZ7QD0zH4SlF33Ulun|KA=="
     os.environ['ClientKey'] = "ECZ7QD0zH4SlF33Ulun|KA=="
-    os.environ['AccessToken'] = "eyJhbGciOiJFUzI1NiIsIng1dCI6IkRFNDc0QUQ1Q0NGRUFFRTlDRThCRDQ3ODlFRTZDOTEyRjVCM0UzOTQifQ.eyJvYWEiOiI3Nzc3NSIsImlzcyI6Im9hIiwiYWlkIjoiMTA5IiwidWlkIjoiRUNaN1FEMHpINFNsRjMzVWx1bnxLQT09IiwiY2lkIjoiRUNaN1FEMHpINFNsRjMzVWx1bnxLQT09IiwiaXNhIjoiRmFsc2UiLCJ0aWQiOiIyMDAyIiwic2lkIjoiYjA2MTEyYWFhNTQ0NDkxZjkyYTc3YzljNjRiNmU4YTIiLCJkZ2kiOiI4NCIsImV4cCI6IjE2NTkxMDgwOTgiLCJvYWwiOiIxRiJ9.haBIG-Efs-1WO-VBEIS25-UPqmHtHvtS23PJgyieEWdMOi1izbel6jHOy3QaCehvmUYyFFY_6IIb2Nsd3n-b3Q"
+    os.environ['AccessToken'] = "eyJhbGciOiJFUzI1NiIsIng1dCI6IkRFNDc0QUQ1Q0NGRUFFRTlDRThCRDQ3ODlFRTZDOTEyRjVCM0UzOTQifQ.eyJvYWEiOiI3Nzc3NSIsImlzcyI6Im9hIiwiYWlkIjoiMTA5IiwidWlkIjoiRUNaN1FEMHpINFNsRjMzVWx1bnxLQT09IiwiY2lkIjoiRUNaN1FEMHpINFNsRjMzVWx1bnxLQT09IiwiaXNhIjoiRmFsc2UiLCJ0aWQiOiIyMDAyIiwic2lkIjoiYzQ0N2Q3NmEwNzYyNDZjZmE4ZmY0YjY1OTMxZjgyMDMiLCJkZ2kiOiI4NCIsImV4cCI6IjE2NTkyNzM1NzEiLCJvYWwiOiIxRiJ9.hTZ5QkRBZ6bQDQ6DZPXow88NC-iA0UNjR2siJ90pvpmZsSO0rmX7ZtezPWeE7ChQw6urQYKjpdHoyjCUgsYvPw"
     os.environ['AccountId'] = "17001666"
     os.environ['ClientId'] = "17001666"
+    os.environ['TelegramBot'] = "5456469961:AAHRLzVTU-S4Roe2tKCY3Qd7J7uGm_DHiGo"
 
 run()
