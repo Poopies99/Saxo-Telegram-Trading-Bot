@@ -1,6 +1,6 @@
 -i https://pypi.org/simple
 requests>=2.20
 saxo-openapi==0.6.0
-pyTelegramBotAPI==3.7.7
+pyTelegramBotAPI==4.6.1
 
 

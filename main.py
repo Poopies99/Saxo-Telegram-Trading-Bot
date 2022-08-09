@@ -1,13 +1,11 @@
 from Library.saxo_openapi import API
-from Library.telebot import TeleBot
 import os
-import portfolio
-import notification
 import bot
 
 def run():
     setEnvironmentVar()
 
+    bot.runBot()
     # # Run Client Instance
     # client = API(access_token=os.getenv('AccessToken'))
 
@@ -34,5 +32,6 @@ def setEnvironmentVar():
     os.environ['AccountId'] = "17001666"
     os.environ['ClientId'] = "17001666"
     os.environ['TelegramBot'] = "5456469961:AAHRLzVTU-S4Roe2tKCY3Qd7J7uGm_DHiGo"
+    os.environ['ChatID'] = "266003499"
 
 run()
