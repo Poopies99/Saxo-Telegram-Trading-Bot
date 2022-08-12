@@ -10,7 +10,7 @@ def run():
 
     # bot.runBot()
 
-    # # Run Client Instance
+    # Run Client Instance
     client = API(access_token=os.getenv('AccessToken'))
 
     # # Create PriceAlert
