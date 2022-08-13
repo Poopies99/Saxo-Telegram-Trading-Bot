@@ -1,30 +1,9 @@
-from Library.saxo_openapi import API
 import os
 import bot
-import Library.requests as requests
-import order
 
 def run():
     setEnvironmentVar()
-    # bot.runBot()
-    # Run Client Instance
-    client = API(access_token=os.getenv('AccessToken'))
-
-    # # Create PriceAlert
-    # print(notification.createPriceAlerts(client))
-
-    # # Get Created Price Alert
-    # print(notification.viewPriceAlerts(client))
-
-    # # Get Account Balance
-    # print(portfolio.accountBalance(client))
-
-    # Create Order
-    print(order.createOrder(client, 100000, "FxSpot", "Sell", "Market", 22)) # GBPAUD
-
-    # View Current Positions
-    # positions = order.viewPositions(client)
-    # print(positions)
+    bot.runBot()
 
 def setEnvironmentVar():
     os.environ['AccountGroupKey'] = "ECZ7QD0zH4SlF33Ulun|KA=="
@@ -34,6 +13,6 @@ def setEnvironmentVar():
     os.environ['AccountId'] = "17001666"
     os.environ['ClientId'] = "17001666"
     os.environ['TelegramBot'] = "5456469961:AAHRLzVTU-S4Roe2tKCY3Qd7J7uGm_DHiGo"
-    os.environ['ChatID'] = "266003499"
-
+    # os.environ['ChatID'] = "266003499"
+    os.environ['ChatID'] = "55269324"
 run()

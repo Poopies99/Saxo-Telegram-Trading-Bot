@@ -2,9 +2,10 @@ from ctypes import resize
 from email import message
 from telebot import TeleBot
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup
-import portfolio
-import notification
 import os
+import requests
+import constants
+import json
 
 def runBot():
     bot = TeleBot(token=os.getenv('TelegramBot'))
@@ -25,12 +26,14 @@ def runBot():
             viewPosition(bot)
         elif call.data == "CreateOrder":
             bot.answer_callback_query(call.id, "Creating Order")
-        elif call.data == "ViewOrder":
-            bot.answer_callback_query(call.id, "Viewing Orders")
+        elif call.data == "ViewBalance":
+            bot.answer_callback_query(call.id, "Viewing Portofolio Balance")
+            viewBalance(bot)
         elif call.data == "CreateAlert":
             bot.answer_callback_query(call.id, "Creating a Price Alert")
         elif call.data == "ViewAlert":
             bot.answer_callback_query(call.id, "Viewing Price Alerts")
+            viewAlert(bot)
         else:
             bot.add_callback_query_handler(call.id, "Invalid Choice")
 
@@ -45,9 +48,9 @@ def menu_markup():
     markup = InlineKeyboardMarkup()
     markup.row_width = 1
     markup.add(InlineKeyboardButton("View My Positions", callback_data="Positions"),
-               InlineKeyboardButton("Create An Order", callback_data="CreateOrder"),
-               InlineKeyboardButton("View My Orders", callback_data="ViewOrder"),
-               InlineKeyboardButton("Create Price Alert", callback_data="CreateAlert"),
+            #    InlineKeyboardButton("Create An Order", callback_data="CreateOrder"),
+               InlineKeyboardButton("View My Balance", callback_data="ViewBalance"),
+            #    InlineKeyboardButton("Create Price Alert", callback_data="CreateAlert"),
                InlineKeyboardButton("View My Price Alerts", callback_data="ViewAlert"))
     return markup
 
@@ -61,7 +64,24 @@ def menu_markup():
 #     return markup
 
 def viewPosition(bot):
-    chatID = os.getenv('ChatID')
-    bot.send_message(chatID, "Hello!")
+    params = {"request": "view my positions"}
+    data = requests.get(constants.API_GATEWAY_URL, params=params)
+    data = json.loads(data.text)
+    for i in data:
+        position = f'Instrument: {i["Instrument Name"]} \nExposure: {i["Exposure"]} \nOpen Price: {i["Open Price"]} \nCurrent Price: {i["Current Price"]} \nCost of Trade: {i["Cost Of Trade"]} \nProfit/Loss: {i["Profit/Loss"]}'
+        bot.send_message(os.getenv('ChatID'), position)
     
-    
+def viewBalance(bot):
+    params = {"request": "view my balance"}
+    data = requests.get(constants.API_GATEWAY_URL, params=params)
+    data = json.loads(data.text)
+    balance = f"Account Value': {data['Total Value']} \n'Profit/Loss': {round(data['P/L'], 2)}"
+    bot.send_message(os.getenv('ChatID'), balance)
+
+def viewAlert(bot):
+    params = {"request": "view my price alerts"}
+    data = requests.get(constants.API_GATEWAY_URL, params=params)
+    data = json.loads(data.text)
+    for i in data:
+        alert = f'Instrument: {i["Instrument Name"]}\nOperator: {i["Operator"]}\nTarget Price Level: {i["Target Price Level"]}\nExpiry Date: {i["Expiry Date"]}'
+        bot.send_message(os.getenv('ChatID'), alert)
